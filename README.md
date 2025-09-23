@@ -43,10 +43,10 @@ docker-compose up --build
 
 - POST /api/todoitems/create/ → Create a new todo
 
-- GET /api/todoitems/<id>/ → Retrieve a todo
+- GET '/api/todoitems/<id>/' → Retrieve a todo
 
-- PUT /api/todoitems/<id>/update/ → Update a todo
+- PUT '/api/todoitems/<id>/' → Update a todo
 
-- DELETE /api/todoitems/<id>/delete/ → Delete a todo
+- DELETE '/api/todoitems/<id>/' → Delete a todo
 
 
