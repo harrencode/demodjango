@@ -13,12 +13,14 @@ It runs on **Docker** with a **MySQL database**.
 
 ---
 
+
 ## 📦 Setup Instructions
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/demodjango.git
+git clone https://github.com/harrencode/demodjango.git
 cd demodjango
+```
 
 ### 2. Create .env file
 ```bash
@@ -29,11 +31,12 @@ MYSQL_ROOT_PASSWORD=rootpassword
 SECRET_KEY=your-secret-key
 DEBUG=True
 DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+```
 
 ### 3. Build & Run with Docker
 ```bash
 docker-compose up --build
-
+```
 ### API Endpoints
 
 - GET /api/todoitems/ → List all todos
