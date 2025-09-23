@@ -41,11 +41,9 @@ def todo_items_detail(request,pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     if request.method=='GET':
-        serializer=TodoItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer=TodoItemSerializer(todoitem)
+        return Response(serializer.data)
+        
 
     elif request.method =='PUT':
         serializer=TodoItemSerializer(todoitem, data=request.data)
