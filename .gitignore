@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Django stuff
+media/
+staticfiles/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# VS Code and IDE settings
+.vscode/
+.idea/
+
+# Docker
+*.pid
