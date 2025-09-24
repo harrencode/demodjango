@@ -33,7 +33,7 @@ def todo_items_create(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET','PUT','DELETE'])
+@api_view(['GET','PUT','DELETE','PATCH'])
 def todo_items_detail(request,pk):
     try:
         todoitem =TodoItem.objects.get(pk=pk)
@@ -55,6 +55,14 @@ def todo_items_detail(request,pk):
     elif request.method =='DELETE':
         todoitem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'PATCH':
+        serializer = TodoItemSerializer(todoitem, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
