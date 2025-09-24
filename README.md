@@ -1,12 +1,13 @@
-# Django Todo API with Docker & MySQL
+# Django Todo API with Next.js Frontend, Docker & MySQL
 
-This is a simple **Django REST Framework (DRF)** project that provides a Todo API.  
-It runs on **Docker** with a **MySQL database**.
+This is a simple **Django REST Framework (DRF)** project that provides a Todo API with a **Next.js** frontend.  
+The backend and frontend are fully **dockerized** and use a MySQL database.
 
 ---
 
 ## 🚀 Features
 - Django 5 + DRF
+- Next.js v15.5.4 frontend
 - MySQL database
 - Dockerized setup
 - API endpoints for managing Todo items
@@ -46,6 +47,8 @@ docker-compose up --build
 - GET /api/todoitems/&lt;id&gt;/ → Retrieve a todo
 
 - PUT /api/todoitems/&lt;id&gt;/ → Update a todo
+  
+- PATCH /api/todoitems/&lt;id&gt;/  → Partially update a todo (completed toggle)
 
 - DELETE /api/todoitems/&lt;id&gt; → Delete a todo
 
