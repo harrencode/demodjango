@@ -9,11 +9,20 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import os
 from decouple import config
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 
-import os
+load_dotenv(".env")
+
+# Google OAuth
+GOOGLE_OAUTH_CLIENT_ID = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
+GOOGLE_OAUTH_CLIENT_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
+GOOGLE_OAUTH_CALLBACK_URL = os.getenv("GOOGLE_OAUTH_CALLBACK_URL")
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,6 +43,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'corsheaders',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,9 +53,17 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google', # <- Support Login with Google
     'dj_rest_auth',
+    'dj_rest_auth.registration',
+    
     
 ]
+# django.contrib.sites
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +75,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware', #allow cross origin requests
     'django.middleware.common.CommonMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # Use Email / Password authentication
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none" # Do not require email confirmation
 
 ROOT_URLCONF = 'demodjango.urls'
 
@@ -133,6 +157,27 @@ REST_AUTH = {
     "JWT_AUTH_HTTPONLY": False,  # Makes sure refresh token is sent
 }
 
+
+# django-allauth (social)
+# Authenticate if local account with this email address already exists
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+# Connect local account and social account if local account with that email address already exists
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APPS": [
+            {
+                "client_id": GOOGLE_OAUTH_CLIENT_ID,
+                "secret": GOOGLE_OAUTH_CLIENT_SECRET,
+                "key": "",
+            },
+        ],
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    }
+}
 
 
 # Password validation
