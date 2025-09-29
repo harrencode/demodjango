@@ -1,10 +1,23 @@
+import Image from "next/image";
 export default function Example() {
+
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID;
+  const googleCallbackUri = process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URI;
+
+  
+// console.log(googleClientId); // Check that it prints a valid URL
+// console.log(googleCallbackUri); // Check that it prints a valid URL
+
+const googleSignInUrl = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${googleCallbackUri}&prompt=consent&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile&access_type=offline`;
+
+// console.log(googleSignInUrl); // Check that it prints a valid URL
+
   return (
     <>
       
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
+          <Image
             alt="Your Company"
             src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
             className="mx-auto h-10 w-auto"
@@ -60,6 +73,9 @@ export default function Example() {
               >
                 Sign in
               </button>
+            </div>
+            <div style={{ padding: 20 }}>
+              <a href={googleSignInUrl}>Sign in with Google</a>
             </div>
           </form>
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -71,7 +71,11 @@ class GoogleLoginCallback(APIView):
             return Response({"error": response.text}, status=response.status_code)
 
         tokens = response.json()
-        return Response(tokens, status=200)
+        # return Response(tokens, status=200)
+    
+        # Redirect to frontend with token as query param
+        frontend_url = f"http://localhost:3000/auth/success?access_token={tokens['access_token']}"
+        return redirect(frontend_url)
 
 
 
